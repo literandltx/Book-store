@@ -2,6 +2,7 @@ package com.example.bookstore;
 
 import com.example.bookstore.model.Book;
 import com.example.bookstore.service.BookService;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,12 +21,21 @@ public class BookStoreApplication {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-            Book book = new Book();
-            book.setTitle("book");
-            bookService.save(book);
+            Book book1 = new Book();
+            book1.setTitle("book1");
+            book1.setAuthor("author1");
+            book1.setIsbn("isbn1");
+            book1.setPrice(BigDecimal.TEN);
+            Book book2 = new Book();
+            book2.setTitle("book2");
+            book2.setAuthor("author2");
+            book2.setIsbn("isbn2");
+            book2.setPrice(BigDecimal.valueOf(20));
+
+            bookService.save(book1);
+            bookService.save(book2);
 
             System.out.println(bookService.findAll());
-            System.out.println("LETS GOOOOOOOOOOOOO..........");
         };
     }
 }
