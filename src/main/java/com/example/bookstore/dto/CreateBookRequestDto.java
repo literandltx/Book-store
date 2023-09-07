@@ -1,7 +1,6 @@
 package com.example.bookstore.dto;
 
 import com.example.bookstore.validation.Isbn;
-import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
