@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-users-table-by-data
+      author: literandltx
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: "email", value: "email1@gmail.com"}
+              - column: {name: "password", value: "$2a$12$zmLqQy8d2XyJMcY81P.oQ.b1vCsL8EJAiLvlODUICtQKBh7VJQ6U6"}
+              - column: {name: "first_name", value: "name1"}
+              - column: {name: "last_name", value: "last1"}
+              - column: {name: "shipping_address", value: "address1"}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: "email", value: "email2@gmail.com"}
+              - column: {name: "password", value: "$2a$12$zmLqQy8d2XyJMcY81P.oQ.b1vCsL8EJAiLvlODUICtQKBh7VJQ6U6"}
+              - column: {name: "first_name", value: "name2"}
+              - column: {name: "last_name", value: "last2"}
+              - column: {name: "shipping_address", value: "address2"}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: "email", value: "email3@gmail.com"}
+              - column: {name: "password", value: "$2a$12$zmLqQy8d2XyJMcY81P.oQ.b1vCsL8EJAiLvlODUICtQKBh7VJQ6U6"}
+              - column: {name: "first_name", value: "name3"}
+              - column: {name: "last_name", value: "last3"}
+              - column: {name: "shipping_address", value: "address3"}
