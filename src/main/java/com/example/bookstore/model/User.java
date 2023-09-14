@@ -48,7 +48,11 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ADMIN"));
+        if (email.startsWith("admin@")) {;
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     public String getUsername() {
