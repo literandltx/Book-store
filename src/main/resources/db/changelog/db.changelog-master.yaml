@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changes/04-fill-users-table.yaml
   - include:
       file: db/changelog/changes/05-fill-books-table.yaml
+  - include:
+      file: db/changelog/changes/06-create-users-roles-table.yaml
