@@ -1,6 +1,5 @@
 package com.example.bookstore.dto.user;
 
-
 import com.example.bookstore.validation.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -3,7 +3,6 @@ package com.example.bookstore.security;
 import com.example.bookstore.dto.user.UserLoginRequestDto;
 import com.example.bookstore.dto.user.UserLoginResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

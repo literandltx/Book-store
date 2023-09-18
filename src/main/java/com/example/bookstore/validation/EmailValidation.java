@@ -1,8 +1,8 @@
 package com.example.bookstore.validation;
 
-import java.util.regex.Pattern;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
 
 public class EmailValidation implements ConstraintValidator<Email, String> {
     private static final String PATTERN_OF_EMAIL = "^(.+)@(\\S+)$";
