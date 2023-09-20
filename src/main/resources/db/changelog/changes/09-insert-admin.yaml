@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-admin-table
+      author: literandltx
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: "email", value: "admin@gmail.com"}
+              - column: {name: "password", value: "$2a$10$GnqctCmdSX4cUc3ebFX7aOaFWOfdJxQ.6RvqhXjafu1NC9oLfZPWu"}
+              - column: {name: "first_name", value: "admin"}
+              - column: {name: "last_name", value: "admin"}
+              - column: {name: "shipping_address", value: "admin"}
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: "user_id"
+                  value: "4"
+              - column:
+                  name: "role_id"
+                  value: "1"

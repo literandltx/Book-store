@@ -2,8 +2,17 @@ package com.example.bookstore.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
 
 public class IsbnValidator implements ConstraintValidator<Isbn, String> {
+    private static final String ISBN_PATTERN = "^\\d{10,13}$";
+
+    @Override
+    public boolean isValid(String isbn, ConstraintValidatorContext constraintValidatorContext) {
+        return isbn != null && Pattern.compile(ISBN_PATTERN).matcher(isbn).matches();
+    }
+
+    /*
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         char[] isbn = value.toCharArray();
@@ -27,4 +36,5 @@ public class IsbnValidator implements ConstraintValidator<Isbn, String> {
 
         return false;
     }
+     */
 }
