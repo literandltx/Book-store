@@ -57,7 +57,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryResponseDto updateCategory(@PathVariable Long id,
                                               @RequestBody CategoryRequestDto categoryDto) {
-        return categoryService.update(id, categoryDto);
+        return categoryService.updateById(id, categoryDto);
     }
 
     @DeleteMapping("/{id}")

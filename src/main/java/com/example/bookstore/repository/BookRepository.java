@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("FROM Book b JOIN b.categories c WHERE c.id = :categoryId")
     List<Book> findAllByCategoryId(Long categoryId, Pageable pageable);
+
+    boolean existsById(Long id);
 }
