@@ -13,8 +13,6 @@ import com.example.bookstore.repository.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -25,9 +23,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto getByUserId(Long userId) {
-        ShoppingCart shoppingCart = getShoppingCart(userId);
-
-        return shoppingCartMapper.toDto(shoppingCart);
+        return shoppingCartMapper.toDto(getShoppingCart(userId));
     }
 
     // todo fix output delay (maybe the problem presents everywhere)
@@ -44,7 +40,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cartItem.setShoppingCart(shoppingCart);
         cartItemRepository.save(cartItem);
 
-        shoppingCart = getShoppingCart(userId);
         return shoppingCartMapper.toDto(shoppingCart);
     }
 
