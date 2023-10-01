@@ -13,6 +13,8 @@ import com.example.bookstore.repository.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -46,13 +48,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartMapper.toDto(shoppingCart);
     }
 
-    // todo add checking for the right to update the item
     @Override
     public ShoppingCartResponseDto updateCartItem(
             Long userId,
             Long cartItemId,
             UpdateCartItemRequestDto requestDto
     ) {
+        if (getShoppingCart(userId).getCartItems()
+                .stream()
+                .noneMatch(item -> item.getId().equals(cartItemId))) {
+            throw new RuntimeException("User cannot update other's cart item by: " + cartItemId);
+        }
+
         CartItem cartItemFromDb = cartItemRepository.findById(cartItemId).orElseThrow(
                 () -> new EntityNotFoundException("Can't find cart item by id " + cartItemId));
 
@@ -63,16 +70,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartMapper.toDto(getShoppingCart(userId));
     }
 
-    // todo add/fix checking for the right to delete the item
     @Override
     public ShoppingCartResponseDto deleteCartItem(Long userId, Long cartItemId) {
-        getShoppingCart(userId).getCartItems().forEach(System.out::println);
-
         if (getShoppingCart(userId).getCartItems()
                 .stream()
-                .anyMatch(item -> item.getId().equals(cartItemId))
-        ) {
-            throw new RuntimeException("Can't find cart item by id " + cartItemId);
+                .noneMatch(item -> item.getId().equals(cartItemId))) {
+            throw new RuntimeException("User cannot delete other's cart item by: " + cartItemId);
         }
 
         cartItemRepository.deleteById(cartItemId);
