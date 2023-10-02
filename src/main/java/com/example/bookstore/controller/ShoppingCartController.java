@@ -30,7 +30,7 @@ public class ShoppingCartController {
 
     @Operation(summary = "Add cart item to user's cart",
             description = "Create and add cart item to user's cart in db")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping
     public ShoppingCartResponseDto createCartItem(
             Authentication authentication,
@@ -42,7 +42,7 @@ public class ShoppingCartController {
 
     @Operation(summary = "Get all shopping cart's items",
             description = "Get all shopping cart's items that have user who send request")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping
     public ShoppingCartResponseDto getAllCartItems(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -51,7 +51,7 @@ public class ShoppingCartController {
 
     @Operation(summary = "Update cart item by id from user's shopping cart",
             description = "Update cart item by id, user can update only own cart item")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PutMapping("/cart-items/{cartItemId}")
     public ShoppingCartResponseDto updateCartItem(
             Authentication authentication,
@@ -64,7 +64,7 @@ public class ShoppingCartController {
 
     @Operation(summary = "Delete cart item by id from user's shopping cart",
             description = "Delete cart item by id, user can update only own cart item")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @DeleteMapping("/cart-items/{cartItemId}")
     public ShoppingCartResponseDto deleteCartItem(
             Authentication authentication,
