@@ -1,5 +1,6 @@
 package com.example.bookstore.service.shoppingcart;
 
+import com.example.bookstore.dto.shoppingcart.CartItemResponseDto;
 import com.example.bookstore.dto.shoppingcart.CreateCartItemRequestDto;
 import com.example.bookstore.dto.shoppingcart.ShoppingCartResponseDto;
 import com.example.bookstore.dto.shoppingcart.UpdateCartItemRequestDto;
@@ -8,6 +9,7 @@ import com.example.bookstore.mapper.CartItemMapper;
 import com.example.bookstore.mapper.ShoppingCartMapper;
 import com.example.bookstore.model.CartItem;
 import com.example.bookstore.model.ShoppingCart;
+import com.example.bookstore.repository.BookRepository;
 import com.example.bookstore.repository.CartItemRepository;
 import com.example.bookstore.repository.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +22,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemRepository cartItemRepository;
     private final CartItemMapper cartItemMapper;
+    private final BookRepository bookRepository;
 
     @Override
     public ShoppingCartResponseDto getByUserId(Long userId) {
         return shoppingCartMapper.toDto(getShoppingCart(userId));
     }
 
-    // todo fix output delay (maybe the problem presents everywhere)
     @Override
     public ShoppingCartResponseDto addCartItem(Long userId, CreateCartItemRequestDto requestDto) {
         ShoppingCart shoppingCart = getShoppingCart(userId);
@@ -38,9 +40,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
 
         cartItem.setShoppingCart(shoppingCart);
-        cartItemRepository.save(cartItem);
+        CartItem save = cartItemRepository.save(cartItem);
+        CartItemResponseDto dto = cartItemMapper.toDto(save);
+        dto.setBookTitle(bookRepository.findById(dto.getBookId()).orElseThrow().getTitle());
 
-        return shoppingCartMapper.toDto(shoppingCart);
+        ShoppingCartResponseDto resultDto = shoppingCartMapper.toDto(shoppingCart);
+        resultDto.getCartItems().add(dto);
+
+        return resultDto;
     }
 
     @Override
@@ -65,6 +72,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartMapper.toDto(getShoppingCart(userId));
     }
 
+    // todo fix output delay
     @Override
     public ShoppingCartResponseDto deleteCartItem(Long userId, Long cartItemId) {
         if (getShoppingCart(userId).getCartItems()
