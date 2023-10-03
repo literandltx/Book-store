@@ -26,15 +26,21 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String author;
+
     @Column(nullable = false, unique = true)
     private String isbn;
+
     @Column(nullable = false)
     private BigDecimal price;
+
     private String description;
+
     private String coverImage;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -45,4 +51,12 @@ public class Book {
 
     @Column(nullable = false)
     private boolean isDeleted = false;
+
+    public Book() {
+
+    }
+
+    public Book(Long id) {
+        this.id = id;
+    }
 }
