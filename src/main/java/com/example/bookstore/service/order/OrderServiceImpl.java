@@ -100,7 +100,10 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(order);
     }
 
-    private static Set<OrderItem> getOrderItemFromShoppingCart(ShoppingCart shoppingCart, Order order) {
+    private static Set<OrderItem> getOrderItemFromShoppingCart(
+            ShoppingCart shoppingCart,
+            Order order
+    ) {
         return shoppingCart.getCartItems().stream()
                 .map(item -> {
                     OrderItem orderItem = new OrderItem();
