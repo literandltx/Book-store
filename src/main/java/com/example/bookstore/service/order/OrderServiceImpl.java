@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderResponseDto createOrder(User user, CreateOrderRequestDto requestDto) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user).orElseThrow();
         Order order = orderMapper.toEntity(requestDto);
@@ -93,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findByIdAndUser(orderId, user).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find order by id: " + orderId));
 
-        orderRepository.updateOrderByStatus(order.getId(), requestDto.getStatus());
+        orderRepository.update(order.getId(), requestDto.getStatus());
 
         return orderMapper.toDto(order);
     }
