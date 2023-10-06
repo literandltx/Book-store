@@ -71,18 +71,7 @@ public class OrderServiceImpl implements OrderService {
                 .reduce(BigDecimal::add)
                 .orElseThrow();
 
-        Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
-                .map(item -> {
-                    OrderItem orderItem = new OrderItem();
-
-                    orderItem.setOrder(order);
-                    orderItem.setBook(item.getBook());
-                    orderItem.setQuantity(item.getQuantity());
-                    orderItem.setPrice(item.getBook().getPrice());
-
-                    return orderItem;
-                })
-                .collect(Collectors.toSet());
+        Set<OrderItem> orderItems = getOrderItemFromShoppingCart(shoppingCart, order);
 
         order.setOrderDate(LocalDateTime.now());
         order.setUser(shoppingCart.getUser());
@@ -107,5 +96,20 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.updateOrderByStatus(order.getId(), requestDto.getStatus());
 
         return orderMapper.toDto(order);
+    }
+
+    private static Set<OrderItem> getOrderItemFromShoppingCart(ShoppingCart shoppingCart, Order order) {
+        return shoppingCart.getCartItems().stream()
+                .map(item -> {
+                    OrderItem orderItem = new OrderItem();
+
+                    orderItem.setOrder(order);
+                    orderItem.setBook(item.getBook());
+                    orderItem.setQuantity(item.getQuantity());
+                    orderItem.setPrice(item.getBook().getPrice());
+
+                    return orderItem;
+                })
+                .collect(Collectors.toSet());
     }
 }
