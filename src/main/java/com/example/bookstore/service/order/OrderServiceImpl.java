@@ -15,6 +15,7 @@ import com.example.bookstore.repository.CartItemRepository;
 import com.example.bookstore.repository.OrderItemRepository;
 import com.example.bookstore.repository.OrderRepository;
 import com.example.bookstore.repository.ShoppingCartRepository;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -95,7 +95,8 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findByIdAndUser(orderId, user).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find order by id: " + orderId));
 
-        orderRepository.update(order.getId(), requestDto.getStatus());
+        order.setStatus(requestDto.getStatus());
+        orderRepository.save(order);
 
         return orderMapper.toDto(order);
     }
