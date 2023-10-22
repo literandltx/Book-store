@@ -9,7 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Sql(scripts = {
-        "classpath:databases/category/01-insert-2-categories.sql"},
+        "classpath:databases/category/01-insert-3-categories.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = {
         "classpath:databases/category/02-delete-categories.sql"},

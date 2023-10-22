@@ -16,7 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Sql(scripts = {
-        "classpath:databases/category/01-insert-2-categories.sql",
+        "classpath:databases/category/01-insert-3-categories.sql",
         "classpath:databases/book/01-insert-3-books.sql",
         "classpath:databases/book/02-set-books-categories.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
