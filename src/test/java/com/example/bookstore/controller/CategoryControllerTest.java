@@ -8,12 +8,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookstore.dto.category.CategoryRequestDto;
 import com.example.bookstore.dto.category.CategoryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -126,14 +123,15 @@ class CategoryControllerTest {
         // Given
         List<CategoryResponseDto> expected = new ArrayList<>();
         CategoryResponseDto responseDto2 = new CategoryResponseDto();
-        responseDto2.setId(2L);
-        responseDto2.setName("Fantasy");
         CategoryResponseDto responseDto3 = new CategoryResponseDto();
-        responseDto3.setId(3L);
-        responseDto3.setName("Detective");
 
         expected.add(responseDto2);
         expected.add(responseDto3);
+
+        responseDto2.setId(2L);
+        responseDto2.setName("Fantasy");
+        responseDto3.setId(3L);
+        responseDto3.setName("Detective");
 
         MvcResult result = mockMvc.perform(
                         get("/category")
@@ -142,8 +140,8 @@ class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        CategoryResponseDto[] actual = objectMapper.readValue(result.getResponse().getContentAsString(),
-                CategoryResponseDto[].class);
+        CategoryResponseDto[] actual = objectMapper.readValue(
+                result.getResponse().getContentAsString(), CategoryResponseDto[].class);
         Assertions.assertEquals(2, actual.length);
         Assertions.assertEquals(expected, Arrays.stream(actual).toList());
     }
@@ -167,8 +165,8 @@ class CategoryControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andReturn();
-        CategoryResponseDto actual = objectMapper.readValue(result.getResponse().getContentAsString(),
-                CategoryResponseDto.class);
+        CategoryResponseDto actual = objectMapper.readValue(
+                result.getResponse().getContentAsString(), CategoryResponseDto.class);
 
         // Then
         Assertions.assertNotNull(actual);
@@ -176,7 +174,6 @@ class CategoryControllerTest {
         Assertions.assertEquals(actual.getName(), updateCategory.getName());
 
     }
-
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
