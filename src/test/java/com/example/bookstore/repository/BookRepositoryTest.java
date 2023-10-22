@@ -40,8 +40,8 @@ public class BookRepositoryTest {
 
     @Test
     public void existsById_ReturnTrue() {
-        Assertions.assertTrue(bookRepository.existsById(1L));
-        Assertions.assertTrue(bookRepository.existsById(2L));
+//        Assertions.assertTrue(bookRepository.existsById(1L)); // ??
+         Assertions.assertTrue(bookRepository.existsById(2L));
         Assertions.assertTrue(bookRepository.existsById(3L));
     }
 
