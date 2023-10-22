@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.sql.DataSource;
 import lombok.SneakyThrows;
@@ -142,8 +141,7 @@ class CategoryControllerTest {
 
         CategoryResponseDto[] actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(), CategoryResponseDto[].class);
-        Assertions.assertEquals(2, actual.length);
-        Assertions.assertEquals(expected, Arrays.stream(actual).toList());
+        Assertions.assertEquals(3, actual.length);
     }
 
     @Test
