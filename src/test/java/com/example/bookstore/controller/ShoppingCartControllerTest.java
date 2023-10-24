@@ -215,11 +215,9 @@ public class ShoppingCartControllerTest {
     private User getMockUser() {
         User user = new User();
         user.setId(1L);
-        Set<Role> roles = new HashSet<>();
         Role role = new Role();
         role.setName(Role.RoleName.ROLE_USER);
-        roles.add(role);
-        user.setRoles(roles);
+        user.setRoles(Set.of(role));
         return user;
     }
 }
